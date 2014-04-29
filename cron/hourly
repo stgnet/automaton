@@ -1,0 +1,14 @@
+#!/bin/bash
+set -exu
+
+echo "HOURLY SCRIPT RUNNING IN $PWD"
+
+SCRIPT=$(readlink -f $0)
+SCRIPTDIR="${SCRIPT%/*}"
+BASEDIR="${SCRIPTDIR%/*}"
+
+cd $BASEDIR
+
+git pull
+
+./install.sh
