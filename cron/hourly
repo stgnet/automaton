@@ -1,7 +1,7 @@
 #!/bin/bash
 set -exu
 
-echo "HOURLY SCRIPT RUNNING IN $PWD"
+echo "HOURLY SCRIPT RUNNING IN $PWD" | Mail -s "Automaton $HOSTNAME" scott@griepentrog.com
 
 SCRIPT=$(readlink -f $0)
 SCRIPTDIR="${SCRIPT%/*}"
