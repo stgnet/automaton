@@ -1,14 +1,17 @@
 #!/bin/bash
 set -exu
 
-echo "HOURLY SCRIPT RUNNING IN $PWD" | Mail -s "Automaton $HOSTNAME" scott@griepentrog.com
-
 SCRIPT=$(readlink -f $0)
 SCRIPTDIR="${SCRIPT%/*}"
 BASEDIR="${SCRIPTDIR%/*}"
 
 cd $BASEDIR
 
-git pull
+update()
+{
+	git pull
 
-./install.sh
+	./install.sh
+}
+
+update 2>&1 | Mail -s "Automaton update $HOSTNAME" scott@griepentrog.com
