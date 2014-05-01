@@ -1,17 +1,26 @@
 #!/bin/bash
-set -exu
-
+#set -exu
 SCRIPT=$(readlink -f $0)
 SCRIPTDIR="${SCRIPT%/*}"
 BASEDIR="${SCRIPTDIR%/*}"
-
 cd $BASEDIR
 
 update()
 {
+	echo "$HOSTNAME: $(uptime)"
+	echo ""
 	git pull
+	echo "git returned $?"
 
 	./install.sh
 }
 
-update 2>&1 | Mail -s "Automaton update $HOSTNAME" scott@griepentrog.com
+doit()
+{
+	set -exu
+	[ -d host/$HOSTNAME/hourly ] && run-parts host/$HOSTNAME/hourly
+	[ -d host/all/hourly ] && run-parts host/all/hourly
+}
+
+
+(update ; doit)  2>&1 | Mail -s "Automaton update $HOSTNAME" scott@griepentrog.com
