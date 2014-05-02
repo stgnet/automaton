@@ -18,8 +18,8 @@ update()
 doit()
 {
 	set -exu
-	[ -d host/$HOSTNAME/hourly ] && run-parts host/$HOSTNAME/hourly
-	[ -d host/all/hourly ] && run-parts host/all/hourly
+	[ -d host/$HOSTNAME/hourly ] && run-parts site/$HOSTNAME/hourly
+	[ -d host/all/hourly ] && run-parts site/all/hourly
 }
 
 
