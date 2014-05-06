@@ -19,6 +19,7 @@ doit()
 {
 	set -exu
 	[ -d host/$HOSTNAME/hourly ] && run-parts site/$HOSTNAME/hourly
+	ls -l site/all/hourly
 	[ -d host/all/hourly ] && run-parts site/all/hourly
 }
 
