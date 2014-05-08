@@ -1,5 +1,5 @@
 #!/bin/bash
-#set -exu
+#set -eu
 SCRIPT=$(readlink -f $0)
 SCRIPTDIR="${SCRIPT%/*}"
 BASEDIR="${SCRIPTDIR%/*}"
@@ -7,17 +7,13 @@ cd $BASEDIR
 
 update()
 {
-	echo "$HOSTNAME: $(uptime)"
-	echo ""
-	git pull
-	echo "git returned $?"
-
+	git pull -q || echo "git failed: $?"
 	./install.sh
 }
 
 doit()
 {
-	set -exu
+	set -eu
 	[ -d site/$HOSTNAME/hourly ] && run-parts site/$HOSTNAME/hourly
 	ls -l site/all/hourly
 	[ -d site/all/hourly ] && run-parts site/all/hourly

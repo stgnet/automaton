@@ -1,0 +1,18 @@
+#!/bin/bash
+#set -eu
+SCRIPT=$(readlink -f $0)
+SCRIPTDIR="${SCRIPT%/*}"
+BASEDIR="${SCRIPTDIR%/*}"
+cd $BASEDIR
+
+WHEN="daily"
+
+doit()
+{
+	set -eu
+	[ -d site/$HOSTNAME/$WHEN ] && run-parts site/$HOSTNAME/$WHEN
+	ls -l site/all/$WHEN
+	[ -d site/all/$WHEN ] && run-parts site/all/$WHEN
+}
+
+(doit)  2>&1 | Mail -s "Automaton update $HOSTNAME" scott@griepentrog.com

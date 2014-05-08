@@ -1,6 +1,6 @@
 #!/bin/bash
 # install components needed to operate automaton scripts
-set -exu
+set -eu
 
 [ ! -d cron ] && echo ERROR: missing cron directory && exit 1
 
