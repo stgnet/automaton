@@ -15,7 +15,6 @@ doit()
 {
 	set -eu
 	[ -d site/$HOSTNAME/hourly ] && run-parts site/$HOSTNAME/hourly
-	ls -l site/all/hourly
 	[ -d site/all/hourly ] && run-parts site/all/hourly
 }
 

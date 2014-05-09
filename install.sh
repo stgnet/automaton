@@ -3,13 +3,15 @@
 set -eu
 
 [ ! -d cron ] && echo ERROR: missing cron directory && exit 1
+SUDO=""
+[ `whoami` != 'root' ] && SUDO="sudo"
 
 CRONS=($(ls -1 cron))
 for CRON in ${CRONS[*]}
 do
 	if [ ! -L /etc/cron.$CRON/automaton ]
 	then
-		sudo ln -s $PWD/cron/$CRON /etc/cron.$CRON/automaton
+		$SUDO ln -s $PWD/cron/$CRON /etc/cron.$CRON/automaton
 	fi
 done
 
