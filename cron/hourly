@@ -19,4 +19,6 @@ doit()
 }
 
 
-(update ; doit)  2>&1 | Mail -s "Automaton update $HOSTNAME" scott@griepentrog.com
+(update ; doit)  2>&1 > /tmp/automaton.$$
+[ -s /tmp/automaton.$$ ] && Mail -s "Automaton update $HOSTNAME" scott@griepentrog.com < /tmp/automaton.$$ && rm /tmp/automaton.$$
+
